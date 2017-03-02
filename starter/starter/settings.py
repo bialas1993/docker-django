@@ -84,6 +84,7 @@ DATABASES = {
     }
 }
 
+SESSION_ENGINE = 'redis_sessions.session'
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

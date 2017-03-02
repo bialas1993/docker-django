@@ -7,6 +7,12 @@ services:
         env_file:
             - ./.docker/config/environment/development.env
 
+    redis:
+        restart: always
+        image: redis:latest
+        ports:
+          - "6379:6379"
+
     webserver:
         build:
             context: .
@@ -32,5 +38,6 @@ services:
             - "8000"
         depends_on:
             - db
+            - redis
         env_file:
             - ./.docker/config/environment/development.env
