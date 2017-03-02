@@ -4,17 +4,17 @@ FROM python:3.4
 ADD ./starter /srv/starter
 
 # Install application requirements
-ADD ./config/requirements.txt /srv/starter/
+ADD ./starter-config/requirements.txt /srv/starter/
 RUN pip3 install -r /srv/starter/requirements.txt
 
 # Add start script
-ADD ./config/start.sh /
+ADD ./starter-config/start.sh /
 
-# Add uWSGI config
-ADD ./config/django-uwsgi.ini /etc/uwsgi/django-uwsgi.ini
+# Add uWSGI starter-config
+ADD ./starter-config/django-uwsgi.ini /etc/uwsgi/django-uwsgi.ini
 
 # Add database check script
-ADD ./config/database-check.py /srv/config/database-check.py
+ADD ./starter-config/database-check.py /srv/config/database-check.py
 
 # Create django user, will own the Django app
 RUN adduser --no-create-home --disabled-login --group --system django

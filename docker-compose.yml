@@ -1,9 +1,3 @@
-#####
-# Docker compose YAML file
-#
-# For documentation see: https://docs.docker.com/compose/yml/
-#####
-
 version: "2"
 services:
     db:
@@ -11,12 +5,12 @@ services:
         volumes:
             - /opt/starter/psql:/var/lib/postgresql/data/pgdata
         env_file:
-            - ./config/environment/development.env
+            - ./.docker/config/environment/development.env
 
     webserver:
         build:
             context: .
-            dockerfile: services/webserver/Dockerfile
+            dockerfile: ./.docker/services/webserver/Dockerfile
         ports:
             - "80:80"
             - "443:443"
@@ -25,17 +19,18 @@ services:
         volumes_from:
             - webapp
         env_file:
-            - ./config/environment/development.env
+            - ./.docker/config/environment/development.env
 
     webapp:
         build:
-            context: webapp
+            context: .
+            dockerfile: Dockerfile
         volumes:
-            - ./webapp/starter:/srv/starter
+            - ./starter:/srv/starter
             - /srv/static-files
         expose:
             - "8000"
         depends_on:
             - db
         env_file:
-            - ./config/environment/development.env
+            - ./.docker/config/environment/development.env
